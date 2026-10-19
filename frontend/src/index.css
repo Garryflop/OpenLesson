@@ -1,0 +1,190 @@
+@import "tailwindcss";
+
+@theme {
+  /* Onest: Cyrillic-first grotesque — reads well in Russian/Kazakh UI */
+  --font-sans: "Onest", "Segoe UI", system-ui, -apple-system, sans-serif;
+  /* Astana IT University palette (sampled from the official logo) */
+  --color-brand-50: #eef6fb;
+  --color-brand-100: #d6eaf5;
+  --color-brand-500: #227dad;
+  --color-brand-600: #1e6e99;
+  --color-brand-700: #185a80;
+  --color-brand-800: #15405f;
+  --color-brand-900: #12344f;
+  --color-accent-400: #36add9;
+  --color-accent-500: #2e9dca;
+  --color-accent-600: #227dad;
+  --color-ink: #393026;
+  /* surfaces & shadows tinted with the brand navy instead of pure black */
+  --color-canvas: #f4f6f9;
+  --shadow-card: 0 1px 2px rgb(18 52 79 / 0.05), 0 1px 1px rgb(18 52 79 / 0.03);
+  --shadow-lift: 0 10px 24px -12px rgb(18 52 79 / 0.22), 0 2px 4px rgb(18 52 79 / 0.05);
+  --shadow-overlay: 0 28px 56px -16px rgb(18 52 79 / 0.32), 0 4px 10px rgb(18 52 79 / 0.08);
+  --animate-fade-up: fade-up 0.32s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  --animate-shimmer: shimmer 1.4s ease-in-out infinite;
+  --animate-sheet-up: sheet-up 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes sheet-up {
+    from { transform: translateY(100%); }
+    to { transform: none; }
+  }
+  @keyframes shimmer {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.55; }
+  }
+}
+
+:root {
+  color-scheme: light;
+  /* height of the mobile bottom tab bar (0 on desktop) — used to keep toasts and sticky bars above it */
+  --tabbar-h: calc(4rem + env(safe-area-inset-bottom));
+  --map-bg: #dfe4eb;
+  --map-stroke: #a3acb9;
+  --map-void: #ffffff;
+  --map-room: #4da2ff;
+  --map-room-lesson: #f59e0b;
+  --map-room-selected: #16a34a;
+  --map-room-match: #62cf6b;
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --tabbar-h: 0px;
+  }
+}
+
+/* horizontal chip rows on phones: swipeable, without a visible scrollbar */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem; /* sticky header */
+}
+
+html,
+body {
+  background: var(--color-canvas);
+  color: #111827;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+table,
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* one consistent, visible keyboard focus indicator */
+:focus-visible {
+  outline: 2px solid var(--color-accent-500);
+  outline-offset: 2px;
+}
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: none;
+}
+
+/* lucide icons: one stroke weight everywhere */
+svg.lucide {
+  stroke-width: 1.75;
+}
+
+::selection {
+  background: var(--color-brand-100);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ------------------------------------------------------------------ campus map (aitumap) */
+.campus-map .bg { stroke: var(--map-stroke); fill: var(--map-bg); }
+.campus-map .label-huge { fill: var(--map-stroke) !important; stroke-width: 0.1 !important; }
+.campus-map .label, .campus-map .label-white { fill: #fff !important; stroke-width: 0.1 !important; }
+.campus-map .map-groups-stairs { fill: var(--map-void); pointer-events: none; }
+.campus-map .map-groups-stairs polygon, .campus-map .map-groups-stairs polyline { stroke: var(--map-stroke); }
+.campus-map .map-groups-stairs g path:nth-child(1),
+.campus-map .map-groups-stairs-fill g path:nth-child(1),
+.campus-map .map-groups-techs-icon path:nth-child(1),
+.campus-map .map-groups-wcs-icon path:nth-child(1) { fill: #007aff; }
+.campus-map .map-groups-stairs g path:nth-child(2),
+.campus-map .map-groups-stairs-fill g path:nth-child(2),
+.campus-map .map-groups-techs-icon path:nth-child(2),
+.campus-map .map-groups-wcs-icon path:nth-child(2),
+.campus-map .map-groups-escapes-icon path:nth-child(2) { fill: #fff; }
+.campus-map .map-groups-escapes-icon path:nth-child(1) { fill: #009245; }
+.campus-map .map-groups-stairs-fill { fill: var(--map-bg); pointer-events: none; }
+.campus-map .map-groups-stairs-fill polygon, .campus-map .map-groups-stairs-fill polyline { stroke: var(--map-stroke); }
+.campus-map .map-groups-gym path, .campus-map .map-groups-gym line,
+.campus-map .map-groups-gym polygon, .campus-map .map-groups-gym polyline { stroke: var(--map-stroke) !important; fill: #6db3ff; }
+.campus-map .map-groups-gym-pole path, .campus-map .map-groups-gym-pole line,
+.campus-map .map-groups-gym-pole polygon { stroke: var(--map-stroke); stroke-width: 0.75; fill: none !important; }
+.campus-map .map-groups-techs polygon, .campus-map .map-groups-techs polyline,
+.campus-map .map-groups-escapes polygon, .campus-map .map-groups-escapes polyline { stroke: var(--map-stroke); fill: #c9d0da; pointer-events: none; }
+.campus-map .map-groups-wcs polyline { stroke: var(--map-stroke); fill: #ac7ab6; pointer-events: none; }
+.campus-map .map-groups-walls path, .campus-map .map-groups-walls polyline, .campus-map .map-groups-walls polygon,
+.campus-map .map-groups-walls rect, .campus-map .map-groups-walls line,
+.campus-map .map-groups-coworking-atameken path, .campus-map .map-groups-coworking-atameken polygon,
+.campus-map .map-groups-coworking-atameken polyline { stroke: var(--map-stroke); fill: var(--map-bg); }
+.campus-map .map-groups-void path, .campus-map .map-groups-void polyline, .campus-map .map-groups-void polygon,
+.campus-map .map-groups-void rect, .campus-map .map-groups-void line { stroke: var(--map-stroke); fill: var(--map-void); }
+
+.campus-map .map-groups-rooms g line, .campus-map .map-groups-rooms g polygon, .campus-map .map-groups-rooms g polyline,
+.campus-map .map-groups-rooms-vk g line, .campus-map .map-groups-rooms-vk g polygon, .campus-map .map-groups-rooms-vk g polyline {
+  stroke: var(--map-stroke);
+  fill: var(--map-room);
+  transition: fill 0.15s ease, opacity 0.15s ease;
+}
+.campus-map .map-groups-rooms-vk g polygon, .campus-map .map-groups-rooms-vk g polyline { fill: #61a166; }
+.campus-map .map-groups-rooms g text, .campus-map .map-groups-rooms g path,
+.campus-map .map-groups-rooms-vk g text, .campus-map .map-groups-rooms-vk g path {
+  stroke: #fff !important;
+  stroke-width: 0.1 !important;
+  fill: #fff !important;
+  pointer-events: none;
+}
+.campus-map .fit-text { font: 9px sans-serif !important; }
+.campus-map [data-name] { cursor: pointer; }
+.campus-map .map-groups-rooms g:hover polygon, .campus-map .map-groups-rooms g:hover polyline { opacity: 0.78; }
+.campus-map.disabled-rooms .map-groups-rooms g polygon,
+.campus-map.disabled-rooms .map-groups-rooms g polyline { fill: #8fb9e8; }
+
+.campus-map .room-has-lesson polygon, .campus-map .room-has-lesson polyline, .campus-map .room-has-lesson line {
+  fill: var(--map-room-lesson) !important;
+}
+.campus-map .room-search-match polygon, .campus-map .room-search-match polyline, .campus-map .room-search-match line {
+  fill: var(--map-room-match) !important;
+}
+.campus-map .room-selected polygon, .campus-map .room-selected polyline, .campus-map .room-selected line {
+  fill: var(--map-room-selected) !important;
+  stroke: #ffffff !important;
+  stroke-width: 1.4px;
+}
+@keyframes room-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+.campus-map .room-selected polygon, .campus-map .room-selected polyline { animation: room-pulse 1.6s ease-in-out infinite; }
