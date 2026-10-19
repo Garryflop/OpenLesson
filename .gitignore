@@ -1,0 +1,27 @@
+# Python
+backend/.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+backend/.env
+backend/*.db
+backend/*.db-wal
+backend/*.db-shm
+backend/storage/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Personal data (university staff directory) - never commit
+backend/data/private/
+*.teachers.json
+
+# Local tools
+.claude/
+*.tsbuildinfo
