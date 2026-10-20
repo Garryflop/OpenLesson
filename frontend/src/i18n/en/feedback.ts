@@ -1,0 +1,58 @@
+import type ru from "../ru/feedback";
+
+export default {
+  // list of my feedback forms
+  listSubtitle: "Feedback forms for the open lessons you attended. Each form must be filled in within 3 days.",
+  status: {
+    pending: "Not started",
+    draft: "Draft",
+    submitted: "Submitted",
+    expired: "Expired",
+  },
+  fillBy: (when: string, rel: string) => `Fill in by ${when} (${rel})`,
+  sentAt: (when: string) => `Submitted on ${when}`,
+  expiredAt: (when: string) => `Expired on ${when}`,
+  hasReply: "the teacher has replied",
+  emptyTitle: "No feedback forms",
+  emptyText: "Once the organiser confirms your attendance at an open lesson, your personal feedback form will appear here.",
+  awaiting: "Awaiting your review",
+  history: "History",
+
+  // feedback form
+  formTitle: "Feedback form",
+  loadingForm: "Loading the form",
+  /** Labels of the 1–5 scale, index 0 = score 1. */
+  scale: ["Unsatisfactory", "Weak", "Satisfactory", "Good", "Excellent"],
+  scaleLegend: "Scale: 1 — unsatisfactory, 5 — excellent.",
+  draftNotSaved: (message: string) => `Draft not saved: ${message}`,
+  submittedToast: "Review submitted. Thank you for your feedback",
+  rateAll: (left: number) => `Rate all criteria: ${left} left`,
+  textRequired: "Fill in the strengths or recommendations",
+  confirmTitle: "Submit the review?",
+  confirmText: "Once submitted, the review will be visible to the teacher who gave the lesson. A submitted review cannot be changed.",
+  confirmLabel: "Submit",
+  saving: "Saving…",
+  unsaved: "Unsaved changes",
+  savedAt: (time: string) => `Draft saved at ${time}`,
+  autosave: "The draft is saved automatically",
+  introEditable: (when: string, rel: string) =>
+    `Fill in by ${when} (${rel}). The teacher who gave the lesson will see your review together with your full name.`,
+  introSubmitted: (when: string) => `Submitted on ${when}. A submitted review cannot be changed.`,
+  introExpired: (when: string) => `The deadline passed on ${when}.`,
+  teacher: "Teacher",
+  topic: "Topic",
+  discipline: "Course",
+  datePlace: "Date and location",
+  criteria: "Evaluation criteria",
+  filledOf: (filled: number, total: number) => `${filled} of ${total}`,
+  rateThis: "Give a score",
+  strengths: "Strengths of the lesson",
+  strengthsPlaceholder: "What did the teacher do particularly well?",
+  improvements: "Recommendations for improvement",
+  improvementsPlaceholder: "What could be improved?",
+  comment: "Comment",
+  optional: "Optional",
+  teacherReply: "Teacher's reply",
+  submit: "Submit review",
+  submittedBanner: (when: string) => `Review submitted on ${when}.`,
+} satisfies typeof ru;
