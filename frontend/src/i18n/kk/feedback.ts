@@ -1,0 +1,58 @@
+import type ru from "../ru/feedback";
+
+export default {
+  // list of my feedback forms
+  listSubtitle: "Сіз қатысқан ашық сабақтар бойынша кері байланыс формалары. Толтыру мерзімі — 3 күн.",
+  status: {
+    pending: "Басталмаған",
+    draft: "Жоба",
+    submitted: "Жіберілді",
+    expired: "Мерзімі өтті",
+  },
+  fillBy: (when: string, rel: string) => `Толтыру мерзімі: ${when} (${rel})`,
+  sentAt: (when: string) => `Жіберілді: ${when}`,
+  expiredAt: (when: string) => `Мерзімі өтті: ${when}`,
+  hasReply: "оқытушының жауабы бар",
+  emptyTitle: "Кері байланыс формалары жоқ",
+  emptyText: "Ұйымдастырушы ашық сабаққа қатысқаныңызды растағаннан кейін мұнда жеке Feedback формасы пайда болады.",
+  awaiting: "Толтыру күтілуде",
+  history: "Тарих",
+
+  // feedback form
+  formTitle: "Кері байланыс формасы",
+  loadingForm: "Форма жүктелуде",
+  /** Labels of the 1–5 scale, index 0 = score 1. */
+  scale: ["Қанағаттанарлықсыз", "Әлсіз", "Қанағаттанарлық", "Жақсы", "Өте жақсы"],
+  scaleLegend: "Шкала: 1 — қанағаттанарлықсыз, 5 — өте жақсы.",
+  draftNotSaved: (message: string) => `Жоба сақталмады: ${message}`,
+  submittedToast: "Пікір жіберілді. Кері байланысыңызға рақмет",
+  rateAll: (left: number) => `Барлық критерийді бағалаңыз: ${left} қалды`,
+  textRequired: "Күшті жақтарын немесе ұсыныстарды толтырыңыз",
+  confirmTitle: "Пікірді жібересіз бе?",
+  confirmText: "Жіберілгеннен кейін пікірді сабақты өткізген оқытушы көреді. Жіберілген пікірді өзгерту мүмкін емес.",
+  confirmLabel: "Жіберу",
+  saving: "Сақталуда…",
+  unsaved: "Сақталмаған өзгерістер бар",
+  savedAt: (time: string) => `Жоба сақталды: ${time}`,
+  autosave: "Жоба автоматты түрде сақталады",
+  introEditable: (when: string, rel: string) =>
+    `Толтыру мерзімі: ${when} (${rel}). Пікіріңізді сабақты өткізген оқытушы аты-жөніңізбен бірге көреді.`,
+  introSubmitted: (when: string) => `Жіберілді: ${when}. Жіберілген пікірді өзгерту мүмкін емес.`,
+  introExpired: (when: string) => `Толтыру мерзімі өтті: ${when}.`,
+  teacher: "Оқытушы",
+  topic: "Тақырыбы",
+  discipline: "Пән",
+  datePlace: "Күні мен орны",
+  criteria: "Бағалау критерийлері",
+  filledOf: (filled: number, total: number) => `${total} ішінен ${filled}`,
+  rateThis: "Баға қойыңыз",
+  strengths: "Сабақтың күшті жақтары",
+  strengthsPlaceholder: "Оқытушы нені ерекше жақсы орындады?",
+  improvements: "Жетілдіру бойынша ұсыныстар",
+  improvementsPlaceholder: "Нені жақсартуға болады?",
+  comment: "Түсініктеме",
+  optional: "Міндетті емес",
+  teacherReply: "Оқытушының жауабы",
+  submit: "Пікірді жіберу",
+  submittedBanner: (when: string) => `Пікір жіберілді: ${when}.`,
+} satisfies typeof ru;

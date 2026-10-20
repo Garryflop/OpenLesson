@@ -1,0 +1,23 @@
+// Keep keys in sync with ../en/schedule.ts
+export default {
+  title: "Расписание открытых занятий",
+  yearSubtitle: (name: string) => `Учебный год ${name}`,
+  year: "Учебный год",
+  trimester: "Триместр",
+  trimesterLabel: (roman: string) => `${roman} триместр`,
+  searchPlaceholder: "Тема, дисциплина или преподаватель",
+  search: "Поиск занятий",
+  clearSearch: "Очистить поиск",
+  department: "Кафедра",
+  allDepartments: "Все кафедры",
+  mine: "Мои занятия",
+  statusFilter: "Фильтр по статусу",
+  draftNotice: (roman: string) => `График ${roman} триместра ещё не утверждён.`,
+  goApprove: "Перейти к утверждению",
+  afterApproval: "Занятия появятся после утверждения.",
+  noMatchesTitle: "По фильтрам ничего не найдено",
+  noMatchesText: "Измените условия поиска или сбросьте фильтры.",
+  emptyTitle: "В этом триместре пока нет занятий",
+  emptyText: "Занятия появятся после загрузки и утверждения графика.",
+  resetFilters: "Сбросить фильтры",
+};
