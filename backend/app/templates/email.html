@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="{{ lang }}">
+<head><meta charset="utf-8"><title>{{ subject }}</title></head>
+<body style="margin:0;padding:24px;background:#f4f5f7;font-family:Segoe UI,Arial,sans-serif;color:#111827;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:620px;margin:0 auto;background:#ffffff;border:1px solid #e5e7eb;border-radius:16px;">
+    <tr>
+      <td style="padding:20px 28px;border-bottom:1px solid #eef0f3;">
+        <img src="{{ logo_url }}" alt="Astana IT University" height="36" style="height:36px;vertical-align:middle;border:0;">
+        <span style="font-weight:600;font-size:16px;margin-left:12px;vertical-align:middle;color:{{ primary }};">OpenLesson · {{ category }}</span>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:24px 28px;font-size:15px;line-height:1.6;">
+        <p style="margin:0 0 14px;">{{ greeting }}</p>
+        {% for p in intro %}<p style="margin:0 0 14px;">{{ p }}</p>{% endfor %}
+        {% if fields %}
+        <table role="presentation" cellspacing="0" cellpadding="0" style="margin:6px 0 16px;">
+          {% for label, value in fields %}
+          <tr><td style="padding:3px 14px 3px 0;font-weight:600;vertical-align:top;white-space:nowrap;">{{ label }}:</td><td style="padding:3px 0;">{{ value }}</td></tr>
+          {% endfor %}
+        </table>
+        {% endif %}
+        {% for p in outro %}<p style="margin:0 0 14px;">{{ p }}</p>{% endfor %}
+        {% if link %}
+        <p style="margin:22px 0 6px;"><a href="{{ link }}" style="display:inline-block;background:#111827;color:#ffffff;text-decoration:none;padding:11px 22px;border-radius:999px;font-weight:600;">{{ link_label }}</a></p>
+        {% endif %}
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:14px 28px;border-top:1px solid #eef0f3;color:#6b7280;font-size:12px;">
+        {{ footer }}
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
