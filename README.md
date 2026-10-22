@@ -1,206 +1,249 @@
-# OpenLesson — платформа открытых занятий Astana IT University
+# OpenLesson: open lessons platform for Astana IT University
 
-Веб-платформа для планирования, мониторинга и анализа открытых учебных занятий преподавателей вуза
-(дипломный проект; техническое задание — `ТЕХНИЧЕСКОЕ ЗАДАНИЕ Open lesson .docx`).
+OpenLesson is a web platform for planning, monitoring and analysing open lessons of teaching staff at a higher
+education institution. It is a diploma project at Astana IT University, built on request of the university's
+Academic-Methodological Department.
 
-**Стек:** Python 3.12+ · FastAPI · SQLAlchemy 2 · APScheduler · Pillow/ReportLab/openpyxl · OpenAI API (ChatGPT) или локальная LLM (Ollama / LM Studio)
-· React 19 + TypeScript · Vite · Tailwind CSS · TanStack Query · Recharts · иконки lucide-react
-· интерактивная карта корпуса на основе [aitumap](https://github.com/Yuujiso/aitumap).
+- **Documentation:** [docs/](docs/)
+- **Task tracker (YouTrack):** https://zarkinzz.youtrack.cloud/issues/DIP
+- **Contribution rules:** [CONTRIBUTING.md](CONTRIBUTING.md)
 
-## Команда
+## Problem
 
-| Участник | Роль |
+Open lessons are planned, announced, checked and reported by hand. Teachers learn about their lesson a day before,
+nobody controls the deadline for slides and lesson plans, attendance is kept on a paper sheet, feedback arrives about a
+week later through the dean or gets lost, and trimester reports are built manually.
+
+## Target users
+
+| User | What they do in OpenLesson |
 | --- | --- |
-| Dana Shokobalinova | PM, исследование, QA |
-| Nurdaulet Saparbekov | Backend и архитектура |
-| Amina Sergazina | Frontend и UI / UX |
+| Administrator / methodologist | uploads the trimester schedule, controls deadlines, enters attendees from the attendance sheet, sends posters |
+| Teacher giving the lesson | uploads slides and the lesson plan, reads feedback and replies to it |
+| Observing teacher | attends lessons and fills in the feedback form within 3 days |
+| Dean / deputy dean | sees the lessons and analytics of their school |
+| University leadership | sees summary analytics and reports for the whole university |
 
-Руководитель: Yersultan Tulebayev. Заказчик: учебно-методический отдел Astana IT University.
-Правила работы с репозиторием: [CONTRIBUTING.md](CONTRIBUTING.md). Документы проекта: [docs/](docs/).
+## Expected outcomes
 
----
+- A working platform with 8 modules: schedule, notifications, materials, invitation poster, attendance, feedback,
+  AI assistant, analytics and reports
+- An automated lesson cycle: reminders 10 and 7 days ahead, material check before the deadline, poster 3 days ahead,
+  feedback collection within 3 days after the lesson
+- All feedback and an AI summary in one teacher cabinet
+- A dashboard with Excel and PDF reports
+- A pilot in one trimester and an evaluation of the results
 
-## Быстрый старт (Windows / macOS / Linux)
+## Team
+
+| Member | Role | Responsibilities |
+| --- | --- | --- |
+| Dana Shokobalinova | Project manager, research, QA | plan and YouTrack, contact with the supervisor and the department, interviews, documentation, testing and evaluation |
+| Nurdaulet Saparbekov | Backend and architecture | FastAPI and database design, automation cycle, integrations: Microsoft Entra ID, Outlook, AI |
+| Amina Sergazina | Frontend and UI / UX | React interface and mobile layout, UX prototype and usability, KZ / RU / EN localisation |
+
+**Supervisor:** Yersultan Tulebayev. **Client:** Academic-Methodological Department, Astana IT University.
+
+## Scope
+
+**In scope:** the 8 modules, 5 roles, a responsive web interface (phone first), university e-mail, Excel import of
+the schedule and the staff directory, AI used only as advice, Kazakh, Russian and English interface.
+
+**Out of scope:** a native mobile app, video recording of lessons, full HR or LMS integration, decisions made by AI
+without a human.
+
+## Current status (pre-defense 1, 24 October 2026)
+
+| Area | Status |
+| --- | --- |
+| Research and documentation | proposal, relevance, literature review, existing systems, technology comparison, requirements, diagrams, UX prototype, verification and evaluation plan, project management plan |
+| Backend | all 8 modules, roles and access rules, automated lesson cycle, sign-in through Microsoft Entra ID (OpenID Connect) with a demo login |
+| Frontend | teacher pages, lesson card, feedback form, notifications, administration, analytics, campus map, KZ / RU / EN |
+| Testing | automated backend tests (pytest) and a frontend build run on every pull request |
+| Not done yet | connection to the AITU Microsoft tenant (sign-in and e-mail run in demo mode until then), end-to-end tests, usability test, pilot |
+
+Milestones: pre-defense 1 (24.10.2026), MVP and usability test (30.11.2026), pilot in trimester II (28.02.2027),
+evaluation and thesis (30.04.2027), final defense (May 2027). Issues, assignees, due dates, dependencies and risks are
+in [YouTrack](https://zarkinzz.youtrack.cloud/issues/DIP).
+
+## Technologies
+
+| Part | Technologies |
+| --- | --- |
+| Backend | Python 3.12+, FastAPI, SQLAlchemy 2, SQLite (PostgreSQL in production), APScheduler, Pillow, ReportLab, openpyxl |
+| Frontend | React 19, TypeScript, Vite, Tailwind CSS, TanStack Query, Recharts, lucide-react icons |
+| Integrations | Microsoft Entra ID (OpenID Connect), Microsoft Graph or SMTP for Outlook mail, OpenAI API or a local LLM (Ollama, LM Studio) |
+| Campus map | SVG floor plans from [aitumap](https://github.com/Yuujiso/aitumap) (MIT) |
+| Process | GitHub (branches, pull requests, reviews, GitHub Actions), YouTrack, Conventional Commits |
+
+## Documentation
+
+| Document | File |
+| --- | --- |
+| Project proposal | [docs/proposal.md](docs/proposal.md) |
+| Evidence of relevance | [docs/relevance.md](docs/relevance.md) |
+| Literature review | [docs/literature-review.md](docs/literature-review.md) |
+| Existing systems comparison | [docs/existing-systems.md](docs/existing-systems.md) |
+| Technology comparison | [docs/technology-comparison.md](docs/technology-comparison.md) |
+| Functional and non-functional requirements | [docs/requirements.md](docs/requirements.md) |
+| System context, use case and component diagrams | [docs/diagrams/](docs/diagrams/) |
+| UI / UX prototype | [docs/prototype.md](docs/prototype.md) |
+| Verification and evaluation plan | [docs/evaluation-plan.md](docs/evaluation-plan.md) |
+| Project management and risks | [docs/project-management/plan.md](docs/project-management/plan.md) |
+| Supervisor feedback | [docs/supervisor-feedback.md](docs/supervisor-feedback.md) |
+| KZ / RU / EN glossary | [docs/i18n-glossary.md](docs/i18n-glossary.md) |
+| Pre-defense presentation | [docs/presentation/](docs/presentation/) |
+
+## Repository structure
+
+| Content | Folder |
+| --- | --- |
+| Documentation | `docs/` |
+| Diagrams (Mermaid sources and SVG) | `docs/diagrams/` |
+| UI / UX prototype | `docs/prototype.md` |
+| Source code: backend | `backend/app/` (`routers/` API, `services/` business logic, `models.py` data model) |
+| Source code: frontend | `frontend/src/` (`pages/`, `components/`, `i18n/`, `map/`) |
+| Tests | `backend/tests/` |
+| Configuration | `backend/.env.example`, `frontend/vite.config.ts`, `.github/` (pull request template, CI) |
+
+## Setup
+
+Requirements: Python 3.12+, Node.js 20+.
 
 ```bash
 # 1. Backend
 cd backend
 python -m venv .venv
-.venv\Scripts\activate            # macOS/Linux: source .venv/bin/activate
+.venv\Scripts\activate             # macOS / Linux: source .venv/bin/activate
 pip install -r requirements.txt
-copy .env.example .env             # macOS/Linux: cp .env.example .env
-python -m app.seed --reset         # демо-данные (≈25 c): справочник ППС, 263 аудитории, 34 занятия
-                                   # --lang en — демо-контент на английском (темы, отзывы, постеры)
+copy .env.example .env             # macOS / Linux: cp .env.example .env
+python -m app.seed --reset         # demo data: staff directory, 263 campus rooms, 34 lessons
+                                   # --lang en: demo content in English
 uvicorn app.main:app --reload --port 8000
 
-# 2. Frontend (в другом терминале)
+# 2. Frontend (second terminal)
 cd frontend
 npm install
-npm run dev                        # http://localhost:5173  (прокси /api → :8000)
+npm run dev                        # http://localhost:5173 (proxy /api -> :8000)
 ```
 
-Документация API (Swagger): http://localhost:8000/docs · Тесты: `cd backend && python -m pytest`.
+API documentation (Swagger): http://localhost:8000/docs
 
-### Справочник преподавателей (персональные данные)
+## Testing
 
-**Целевой источник — AITU Digital University** (единая база сотрудников университета: ФИО, школа/кафедра,
-должность, e-mail). Пока доступа к ней нет, справочник загружается из выгрузки; модуль импорта
-(`app/services/staff_directory.py`) уже работает по внешнему `User ID` и идемпотентен, поэтому синхронизацию с
-Digital University (API или регулярная выгрузка) можно подключить, не меняя остальную систему.
-
-Генератор демо-данных загружает реальную выгрузку преподавателей университета из
-`backend/data/private/teachers.json` (формат `teachers_cleaned.json`: `userId`, ФИО, школа на RU/KZ/EN; CSV с теми же
-столбцами тоже подходит: `python -m app.seed --reset --teachers путь/к/файлу.csv`). Папка `backend/data/private/`
-**исключена из git** — персональные данные в репозиторий не попадают. Без файла используется небольшой вымышленный список.
-
-- «Департамент» в выгрузке — это школа AITU; для каждой школы создаётся одноимённое подразделение.
-- В выгрузке нет e-mail и должностей: e-mail привязывается при первом входе через Microsoft (по совпадению ФИО)
-  или указывается администратором; должность подтягивается из загружаемого графика.
-- Повторный импорт той же выгрузки («Справочник ППС → Импорт», файлы .json/.csv/.xlsx) обновляет ФИО и школы по
-  `User ID`, не трогая роли, e-mail и историю занятий.
-- Демо-занятия и демо-отзывы — **синтетические**, но привязаны к реальным ФИО. Не публикуйте такую демо-базу и
-  не показывайте её вне учебной защиты.
-
-### Демо-вход
-
-Пока OpenID Connect не подключён к тенанту университета, на странице входа работает **демонстрационный вход**:
-поиск любого сотрудника по ФИО. Служебные роли — демо-учётки с вымышленными именами:
-
-| Роль | Пользователь | Что посмотреть |
-|---|---|---|
-| Администратор | Сейтказина Д. М. | «График и триместры», «Контроль сроков», «Настройки» (демо-время), «Журнал рассылок» |
-| Методист | Жумабекова А. Е. | регистрация посетителей (занятие в статусе «Проведено»), постеры |
-| Преподаватель | выводится в конце `app.seed` («Преподаватель с занятием и формой Feedback: …») | «Мое открытое занятие» (1 из 2 материалов), форма Feedback, отзывы о прошлом занятии |
-| Декан | Касымов Н. Б. (Школа программной инженерии) | аналитика только своей школы |
-| Руководство | Омаров Е. С. | сводная аналитика и отчёты Excel/PDF |
-
-**Демо-режим времени** (Настройки → «Демо-режим времени», только не в production): «перемотка» времени платформы
-на +1/+3/+7 дней с немедленным запуском автоматического цикла — удобно, чтобы на защите показать напоминания,
-аннулирование, рассылку постера и сбор Feedback.
-
----
-
-## Соответствие техническому заданию
-
-| Модуль ТЗ | Реализация |
-|---|---|
-| **1. Электронный график по триместрам** | Учебные годы → 3 триместра; импорт утверждённого графика из Excel (11 обязательных полей + Email, шаблон скачивается из системы) с построчным отчётом об ошибках; ручное добавление с выбором аудитории **на карте**; утверждение графика создаёт рабочие записи занятий |
-| **2. Уведомления** | Автоматический расчёт дат; предварительное напоминание за 10 дней и уведомление за 7 дней; персональная рассылка через университетскую почту (Microsoft Graph / SMTP Outlook) + уведомления внутри платформы; журнал всех писем, статус доставки, ошибки, **повторная отправка** с экспоненциальной задержкой (до 5 попыток) и вручную |
-| **3. Презентация и план** | Раздел «Мое открытое занятие»: сведения, срок, статус каждого файла (PPT/PPTX и DOC/DOCX/PDF), замена файла; отметка «загружено после срока» |
-| 3.1–3.2 Проверка и аннулирование | Проверка обоих документов к дедлайну; три политики из ТЗ (настраиваются): **автоматическое аннулирование**, **аннулирование после подтверждения администратора**, **дополнительный срок**. Уведомления преподавателю, администратору/методисту и декану; аннулированное занятие остаётся в истории; восстановление и перенос с указанием причины. Сроки и время дедлайна — в настройках |
-| **4. Постер-приглашение** | За 3 дня: генерация постера A4 (PNG + PDF) по шаблону с **официальным логотипом AITU** и фирменными цветами; ИИ пишет только пригласительный текст, официальные данные берутся из графика; публикация в карточке и рассылка всем активным ППС с вложением; история отправки |
-| **5. Регистрация посетителей** | Основной способ (п. 7.1): сотрудник учебно-методического отдела ведёт **явочный лист**, после занятия методист вносит посетителей в карточку занятия (множественный выбор из справочника ППС; сохраняются ФИО, должность, кафедра, дата) и подтверждает список. **QR-регистрация** (п. 7.2, дополнительная функция) по умолчанию выключена и включается в настройках. Дубликаты и регистрация самого преподавателя запрещены |
-| **6. Feedback** | Персональная форма (личный кабинет / ссылка из письма), доступна только подтверждённым посетителям; критерии 1–5 + текстовые поля; черновик; фиксация даты; запрет повторной отправки; напоминания через 1 и 2 дня; фиксация истечения 3-дневного срока; список неотправленных отзывов для администратора |
-| 6. Просмотр и ответы | Преподаватель видит оценки, комментарии и ФИО авторов, средние баллы, пишет ответ (изменить чужие оценки нельзя), скачивает результаты в PDF |
-| **7. AI Assistant** | OpenAI API (ChatGPT) или локальная LLM через совместимый API (Ollama, LM Studio, vLLM) — выбирается в `.env`; ответы в формате JSON-схемы (structured outputs), для старых локальных серверов — JSON-режим. Анализ плана по 5 направлениям, обобщение отзывов, текст приглашения. Без модели — прозрачный локальный анализ по правилам. Все результаты помечены как рекомендации |
-| **8. Аналитика и отчётность** | Дашборд по годам, триместрам, школам, кафедрам и преподавателям; экспорт в **Excel** (листы: занятия, проведённые/отменённые, материалы, посещаемость, Feedback, оценки, разрезы) и **PDF** |
-| Роли | Администратор, методист, преподаватель (он же наблюдатель на чужих занятиях), декан/зам. декана (данные своей школы), руководство |
-| Язык интерфейса | Казахский, русский и английский: переключатель KZ / RU / EN в шапке и на странице входа; выбор сохраняется в профиле, уведомления и история занятия хранятся на трёх языках, письма уходят на языке получателя; отчёты, шаблоны Excel и ответы ИИ — на языке пользователя, язык постера — в настройках. Словари типизированы (`frontend/src/i18n`), API отвечает на языке заголовка `X-Lang` (`kk`, `ru`, `en`). Терминология — [docs/i18n-glossary.md](docs/i18n-glossary.md) |
-| 11. Автоматический цикл | `app/services/automation.py` — идемпотентный цикл, запускается планировщиком каждые 5 минут и вручную |
-
-### Жизненный цикл занятия
-
-```
-Черновик графика → Ожидаются материалы → Материалы загружены → Подтверждено → (постер за 3 дня)
-   → Проведено → Сбор отзывов (3 дня) → Завершено
-Ветви: Нарушение срока (решение администратора) · Аннулировано (восстановление / перенос)
+```bash
+cd backend
+python -m pytest                   # backend tests
+cd ../frontend
+npm run build                      # type check and production build
 ```
 
----
+Both run automatically on every pull request (GitHub Actions).
 
-## Подключение университетских сервисов Microsoft
+### Demo login
 
-### Вход через OpenID Connect (Microsoft Entra ID / Outlook)
+Until OpenID Connect is connected to the university tenant, the sign-in page has a **demo login**: search any staff
+member by name. Service roles use demo accounts with fictional names:
 
-1. Azure Portal → **Microsoft Entra ID → App registrations → New registration**, тип учётных записей —
-   «Accounts in this organizational directory only».
-2. Redirect URI (Web): `http://localhost:5173/api/auth/callback` (в production — `https://<домен>/api/auth/callback`).
-3. **Certificates & secrets** → New client secret.
-4. В `backend/.env`:
+| Role | User | What to look at |
+| --- | --- | --- |
+| Administrator | Сейтказина Д. М. | schedule and trimesters, deadline control, settings (demo time), e-mail log |
+| Methodologist | Жумабекова А. Е. | attendance of a lesson with status "Held", posters |
+| Teacher | printed at the end of `app.seed` | "My open lesson", feedback form, reviews of a past lesson |
+| Dean | Касымов Н. Б. (School of Software Engineering) | analytics of their school only |
+| Leadership | Омаров Е. С. | summary analytics, Excel and PDF reports |
+
+**Demo time** (Settings, not available in production) moves the platform clock 1, 3 or 7 days ahead and runs the
+automation cycle at once, to show reminders, annulment, poster sending and feedback collection.
+
+### Staff directory and personal data
+
+The target source of staff data is the university's Digital University system. Until it is connected, the directory is
+loaded from an export of teaching staff (`userId`, full name, school in RU / KZ / EN) placed in
+`backend/data/private/teachers.json` (CSV with the same columns also works:
+`python -m app.seed --reset --teachers path/to/file.csv`).
+
+- `backend/data/private/` is **excluded from git**: personal data is never committed. Without the file a small
+  fictional list is used.
+- Re-importing an export updates names and schools by `userId` and keeps roles, e-mails and lesson history.
+- Demo lessons and demo reviews are synthetic. Do not publish a demo database built from the real staff list.
+
+## Modules
+
+| Module | What it does |
+| --- | --- |
+| M1 Schedule | academic years and trimesters, Excel import of the approved schedule with a row-by-row error report, manual lessons with a room picked on the campus map |
+| M2 Notifications | in-app notifications and e-mail through the university mail (Microsoft Graph or SMTP), delivery log, automatic and manual retry |
+| M3 Materials | slides (PPT / PPTX) and lesson plan (DOC / DOCX / PDF), deadline check, three annulment policies: automatic, after administrator confirmation, extra time |
+| M4 Poster | A4 invitation poster (PNG and PDF) with the AITU logo, sent to all teaching staff 3 days before the lesson |
+| M5 Attendance | the methodologist enters attendees from the paper attendance sheet; QR self check-in is optional and off by default |
+| M6 Feedback | form for confirmed attendees only, criteria 1 to 5 and comments, draft, 3-day window with reminders, teacher replies, PDF export |
+| M7 AI assistant | OpenAI API or a local LLM: lesson plan analysis, feedback summary, invitation text; results are marked as recommendations |
+| M8 Analytics | dashboard by year, trimester, school, department and teacher; Excel and PDF reports |
+
+Roles: administrator, methodologist, teacher (also an observer at other lessons), dean / deputy dean (own school only),
+leadership.
+
+### Lesson life cycle
+
+```
+Schedule draft -> Waiting for materials -> Materials uploaded -> Confirmed -> (poster 3 days ahead)
+   -> Held -> Feedback collection (3 days) -> Completed
+Branches: Deadline missed (administrator decides) | Annulled (restore / reschedule)
+```
+
+## Microsoft services
+
+### Sign-in with OpenID Connect (Microsoft Entra ID)
+
+1. Azure Portal, Microsoft Entra ID, App registrations, New registration: "Accounts in this organizational directory
+   only".
+2. Redirect URI (Web): `http://localhost:5173/api/auth/callback` (in production `https://<domain>/api/auth/callback`).
+3. Certificates & secrets, New client secret.
+4. In `backend/.env`:
    ```ini
    OIDC_CLIENT_ID=<Application (client) ID>
    OIDC_CLIENT_SECRET=<secret>
    OIDC_DISCOVERY_URL=https://login.microsoftonline.com/<TENANT_ID>/v2.0/.well-known/openid-configuration
    ALLOWED_EMAIL_DOMAINS=astanait.edu.kz
-   ADMIN_EMAILS=admin@astanait.edu.kz
    ```
-   Используйте URL **конкретного тенанта** (не `common`) — тогда проверка `iss` в ID-токене проходит корректно.
-   E-mail берётся из `email` или `preferred_username` (UPN). Пользователь сопоставляется со справочником ППС по e-mail.
+   Use the URL of the specific tenant, not `common`, so that the `iss` check of the ID token passes.
 
-Протестировать до получения доступа к тенанту AITU можно на бесплатном тенанте Microsoft Entra ID (developer program).
+### Outlook mail
 
-### Почта Outlook
+`EMAIL_BACKEND=graph` (recommended): add the application permission `Mail.Send` to the same app registration.
+`EMAIL_BACKEND=smtp` works with `smtp.office365.com:587`. In `console` mode letters are not sent but saved to
+`storage/outbox` and shown in the e-mail log.
 
-Рекомендуется **Microsoft Graph** (`EMAIL_BACKEND=graph`): в том же App registration добавьте Application permission
-`Mail.Send` (Grant admin consent) и, желательно, ограничьте приложение одним ящиком через Application Access Policy.
-Альтернатива — `EMAIL_BACKEND=smtp` (`smtp.office365.com:587`), но базовая SMTP-аутентификация в Exchange Online
-выводится Microsoft из эксплуатации. В режиме `console` письма не отправляются, а сохраняются в журнал
-(`storage/outbox`) — их можно просмотреть в «Журнале рассылок».
-
-### AI Assistant
-
-Один клиент с OpenAI-совместимым API (`app/services/ai.py`):
+### AI assistant
 
 ```env
-# OpenAI API (ChatGPT)
+# OpenAI API
 AI_PROVIDER=openai
-AI_API_KEY=sk-...
+AI_API_KEY=<key>
 AI_MODEL=gpt-4o-mini
 
-# или локальная LLM — данные не покидают сервер университета (Ollama: ollama pull qwen2.5:7b)
+# or a local LLM: data stays on the university server (Ollama: ollama pull qwen2.5:7b)
 AI_PROVIDER=local
-AI_BASE_URL=http://localhost:11434/v1   # LM Studio: http://localhost:1234/v1
+AI_BASE_URL=http://localhost:11434/v1
 AI_MODEL=qwen2.5:7b
 ```
 
-Без ключа / недоступном сервере используется локальный анализ по правилам, ошибка показывается в карточке.
-Небольшие локальные модели хуже пишут по-казахски — для казахского интерфейса лучше модель покрупнее.
-
----
-
-## Структура
-
-```
-backend/
-  app/
-    main.py              FastAPI, роутеры, раздача собранного фронтенда в production
-    models.py            ORM-модели (занятия, материалы, посещения, отзывы, уведомления, outbox…)
-    routers/             auth (OIDC), users, years, lessons, materials (+AI), attendance (явочный лист, опционально QR), feedback, analytics, admin
-    services/
-      automation.py      автоматический цикл (раздел 11 ТЗ)
-      lesson_logic.py    переходы статусов и уведомления
-      notify.py          уведомления в платформе + почтовый outbox с повторами
-      email_backends.py  console / SMTP / Microsoft Graph
-      poster.py          генератор постера (Pillow), ai.py — OpenAI API / локальная LLM, reports.py — PDF/Excel
-    data/rooms.json      263 аудитории корпуса C1, извлечённые из SVG-карты; aitu-logo.png
-    seed.py              демо-данные: моделирует временную шкалу реальным автоматическим циклом
-  tests/                 сквозные тесты жизненного цикла, политик, прав, импорта и отчётов
-frontend/
-  src/pages/             страницы (главная, расписание, карточка занятия, Feedback, карта, аналитика, админка)
-  src/map/               CampusMap.tsx + aitumap/ (SVG-планы этажей, лицензия MIT)
-```
-
-## Карта кампуса
-
-SVG-планы трёх этажей корпуса C1 взяты из [aitumap](https://github.com/Yuujiso/aitumap) (MIT, © Yuujiso) и доработаны:
-убрана зависимость от Chakra UI, добавлены выбор аудитории кликом (используется при создании/переносе занятия),
-подсветка аудиторий с открытыми занятиями, поиск с автопереключением этажа, приближение к выбранной аудитории,
-мини-карта в карточке занятия, исправлена опечатка в коде аудитории C1.1.352K.
+Without a key or a running local server a transparent rule-based analysis is used.
 
 ## Production
 
 ```bash
-cd frontend && npm run build          # backend раздаёт frontend/dist с того же домена
+cd frontend && npm run build       # the backend serves frontend/dist from the same domain
 ```
-`.env`: `ENVIRONMENT=production`, длинный `SECRET_KEY`, `DEV_LOGIN_ENABLED=false`, `COOKIE_SECURE=true`,
-`FRONTEND_URL=https://<домен>`. Для PostgreSQL: `pip install "psycopg[binary]"` и
-`DATABASE_URL=postgresql+psycopg://user:pass@host/openlesson`. Сервер не стартует в production, если оставлен
-демо-ключ или включён демо-вход.
 
-## Допущения, которые стоит подтвердить
+`.env`: `ENVIRONMENT=production`, a long `SECRET_KEY`, `DEV_LOGIN_ENABLED=false`, `COOKIE_SECURE=true`,
+`FRONTEND_URL=https://<domain>`. PostgreSQL: `pip install "psycopg[binary]"` and
+`DATABASE_URL=postgresql+psycopg://user:pass@host/openlesson`. The server refuses to start in production with the demo
+key or with the demo login enabled.
 
-- Буквы в номерах аудиторий трактуются как тип: **K** — компьютерный класс, **L** — лекционная, **P** — практическая
-  (поле `kind` локации, меняется через `PUT /api/locations/{id}`).
-- Кафедр в выгрузке нет, поэтому уровень «кафедра» совпадает со школой; реальные кафедры можно добавить позже
-  (столбец «Кафедра» в графике или Excel-шаблон справочника).
-- Фирменные цвета (`#12344F`, `#2E9DCA`, коричневый `#393026`) сняты с логотипа AITU и меняются в настройках.
+## Campus map
+
+The SVG floor plans of building C1 come from [aitumap](https://github.com/Yuujiso/aitumap) (MIT, © Yuujiso). They were
+adapted: no Chakra UI dependency, room selection by click, highlighted rooms with open lessons, search with automatic
+floor switching, zoom to the selected room, a mini map in the lesson card.
