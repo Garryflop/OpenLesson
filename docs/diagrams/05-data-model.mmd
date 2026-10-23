@@ -1,0 +1,26 @@
+%% OpenLesson: core data model
+erDiagram
+  ACADEMIC_YEAR ||--|{ TRIMESTER : "has 3"
+  TRIMESTER ||--o{ OPEN_LESSON : schedules
+  SCHOOL ||--o{ DEPARTMENT : has
+  DEPARTMENT ||--o{ USER : employs
+  USER ||--o{ OPEN_LESSON : teaches
+  OPEN_LESSON ||--o{ LESSON_MATERIAL : "slides + plan"
+  OPEN_LESSON ||--o{ ATTENDANCE : "attendance sheet"
+  USER ||--o{ ATTENDANCE : attends
+  OPEN_LESSON ||--o{ FEEDBACK : receives
+  USER ||--o{ FEEDBACK : writes
+  FEEDBACK ||--o{ FEEDBACK_REPLY : "teacher replies"
+  OPEN_LESSON ||--o{ AI_ANALYSIS : "plan, feedback, invitation"
+  USER ||--o{ NOTIFICATION : receives
+
+  ACADEMIC_YEAR { string name "2026-2027" }
+  TRIMESTER { int number "I-III" string status "draft / approved" }
+  SCHOOL { string name "RU / KZ / EN" string external_id "Digital University" }
+  USER { string full_name string roles string language "kk / ru / en" string external_id "Digital University" }
+  OPEN_LESSON { string topic date date string status datetime materials_deadline datetime feedback_due_at }
+  LESSON_MATERIAL { string kind "presentation / plan" bool on_time }
+  ATTENDANCE { string source "attendance sheet" string status "confirmed" }
+  FEEDBACK { json scores "1-5 per criterion" string strengths string improvements }
+  AI_ANALYSIS { string provider "openai / local_llm / rules" json result }
+  NOTIFICATION { string title "kk / ru / en" datetime read_at }

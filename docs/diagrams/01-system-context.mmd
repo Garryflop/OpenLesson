@@ -1,0 +1,28 @@
+%% OpenLesson: system context diagram (C4 level 1)
+flowchart LR
+  classDef person fill:#EEF2F6,stroke:#5B6C8F,stroke-width:1px,color:#1B2430
+  classDef system fill:#12355B,stroke:#12355B,color:#FFFFFF
+  classDef ext fill:#FFFFFF,stroke:#5B6C8F,stroke-width:1.5px,stroke-dasharray:6 4,color:#1B2430
+
+  admin["<b>Administrator / methodologist</b><br/>schedule, deadlines,<br/>attendance sheet, reports"]:::person
+  teacher["<b>Teacher giving the lesson</b><br/>slides and plan,<br/>feedback and replies"]:::person
+  observer["<b>Observing teacher</b><br/>invitations, attendance sheet,<br/>feedback form"]:::person
+  dean["<b>Dean / deputy dean</b><br/>preparation and results<br/>of the school"]:::person
+  lead["<b>University leadership</b><br/>summary analytics<br/>and reports"]:::person
+
+  ol["<b>OpenLesson</b><br/>[software system]<br/><br/>plans, monitors and analyses<br/>open lessons of AITU teaching staff<br/>KZ / RU / EN"]:::system
+
+  entra["<b>Microsoft Entra ID</b><br/>single sign-on"]:::ext
+  outlook["<b>Outlook / Microsoft Graph</b><br/>reminders, posters,<br/>feedback links"]:::ext
+  llm["<b>OpenAI API / local LLM</b><br/>ChatGPT or Ollama<br/>plan, feedback, invitation"]:::ext
+  du["<b>AITU Digital University</b><br/>staff, schools, departments"]:::ext
+
+  admin --> ol
+  teacher --> ol
+  observer --> ol
+  dean --> ol
+  lead --> ol
+  ol -- "HTTPS, OIDC" --> entra
+  ol -- "Graph sendMail" --> outlook
+  ol -- "HTTPS, JSON" --> llm
+  ol -- "staff sync" --> du
