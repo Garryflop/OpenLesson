@@ -1,0 +1,52 @@
+%% OpenLesson: use case diagram (actors as circles, use cases as ellipses, orange = started by time)
+flowchart LR
+  classDef actor fill:#FFFFFF,stroke:#12355B,stroke-width:2px,color:#12355B
+  classDef uc fill:#EEF2F6,stroke:#5B6C8F,color:#1B2430
+  classDef auto fill:#FBE7C6,stroke:#E8A33D,color:#1B2430
+  classDef timer fill:#E8A33D,stroke:#E8A33D,color:#FFFFFF
+
+  A(("<b>Administrator /<br/>methodologist</b>")):::actor
+  T(("<b>Teacher giving<br/>the lesson</b>")):::actor
+  O(("<b>Observing<br/>teacher</b>")):::actor
+
+  subgraph OL["OpenLesson"]
+    u1(["Import & approve schedule"]):::uc
+    u2(["Reschedule / annul lesson"]):::uc
+    u3(["Enter attendees from the sheet"]):::uc
+    u4(["Set deadlines & policy"]):::uc
+    u5(["Upload slides and plan"]):::uc
+    u6(["Get AI analysis of plan"]):::uc
+    u7(["Read feedback & reply"]):::uc
+    u8(["Receive invitation poster"]):::uc
+    u9(["Fill in feedback form"]):::uc
+    v1(["Sign in with Microsoft (all roles)"]):::uc
+    v2(["Schedule, map, KZ / RU / EN (all roles)"]):::uc
+    v3(["Monitor school lessons"]):::uc
+    v4(["View analytics dashboard"]):::uc
+    v5(["Export Excel / PDF reports"]):::uc
+    w1(["Send 10 / 7-day reminders"]):::auto
+    w2(["Check materials, annul"]):::auto
+    w3(["Generate & mail poster"]):::auto
+    w4(["Summarise feedback (AI)"]):::auto
+  end
+
+  D(("<b>Dean /<br/>deputy dean</b>")):::actor
+  L(("<b>University<br/>leadership</b>")):::actor
+  S{{"<b>Scheduler</b><br/>time trigger"}}:::timer
+
+  A --- u1 & u2 & u3 & u4
+  T --- u5 & u6 & u7
+  O --- u8 & u9
+  %% second column of use cases (invisible links only keep the layout in two columns)
+  u1 ~~~ v1
+  u2 ~~~ v2
+  u3 ~~~ v3
+  u4 ~~~ v4
+  u5 ~~~ v5
+  u6 ~~~ w1
+  u7 ~~~ w2
+  u8 ~~~ w3
+  u9 ~~~ w4
+  v3 & v4 --- D
+  v4 & v5 --- L
+  w1 & w2 & w3 & w4 --- S

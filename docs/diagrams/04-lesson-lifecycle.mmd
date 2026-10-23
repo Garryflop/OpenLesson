@@ -1,0 +1,27 @@
+%% OpenLesson: life cycle of an open lesson (automation cycle, section 11 of the specification)
+stateDiagram-v2
+  direction TB
+  state "Draft schedule" as Draft
+  state "Awaiting materials" as Awaiting
+  state "Materials uploaded" as Uploaded
+  state "Missed deadline" as Violation
+  state "Collecting feedback" as Feedback
+
+  [*] --> Draft
+  Draft --> Awaiting: schedule approved
+  Awaiting --> Uploaded: slides + plan uploaded
+  Uploaded --> Confirmed: check at -7 days
+  Awaiting --> Annulled: missed (auto policy)
+  Awaiting --> Violation: missed (admin policy)
+  Violation --> Confirmed: admin confirms / extends
+  Violation --> Annulled: admin annuls
+  Confirmed --> Held: lesson ends
+  Held --> Feedback: attendance sheet confirmed
+  Feedback --> Closed: +3 days, AI summary
+  Closed --> [*]
+  Annulled --> [*]
+
+  note right of Confirmed
+    reminders at -10 / -7 days,
+    poster to all staff at -3 days
+  end note

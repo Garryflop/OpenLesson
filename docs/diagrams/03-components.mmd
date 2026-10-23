@@ -1,0 +1,58 @@
+%% OpenLesson: component diagram (initial draft). Dashed = external service.
+flowchart LR
+  classDef comp fill:#FFFFFF,stroke:#12355B,color:#1B2430
+  classDef router fill:#FFFFFF,stroke:#1F7A6D,stroke-width:1.5px,color:#1B2430
+  classDef svc fill:#FFFFFF,stroke:#E8A33D,stroke-width:1.5px,color:#1B2430
+  classDef orm fill:#D7ECE8,stroke:#1F7A6D,stroke-width:1.5px,color:#1B2430
+  classDef store fill:#FFFFFF,stroke:#12355B,stroke-width:1.5px,color:#1B2430
+  classDef ext fill:#FFFFFF,stroke:#5B6C8F,stroke-width:1.5px,stroke-dasharray:6 4,color:#1B2430
+
+  subgraph BR["Browser: React SPA (TypeScript)"]
+    b1["Pages & role-based routing"]:::comp
+    b2["Campus map (SVG, aitumap)"]:::comp
+    b5["API client + query cache"]:::comp
+    b3["Forms: upload, feedback, attendance"]:::comp
+    b4["UI kit + i18n (KZ / RU / EN)"]:::comp
+  end
+
+  subgraph SRV["Server: FastAPI application"]
+    direction LR
+    subgraph RT["API routers"]
+      r1["auth (OIDC, sessions)"]:::router
+      r2["schedule & lessons"]:::router
+      r3["materials & AI"]:::router
+      r4["attendance (sheet entry)"]:::router
+      r5["feedback"]:::router
+      r6["analytics & reports"]:::router
+      r7["admin & settings"]:::router
+    end
+    subgraph SV["Domain services"]
+      s1["Lesson life cycle"]:::svc
+      s2["Automation cycle (APScheduler)"]:::svc
+      s3["Notifications + e-mail outbox"]:::svc
+      s4["Poster generator (Pillow)"]:::svc
+      s5["AI assistant"]:::svc
+      s6["Reports (Excel / PDF)"]:::svc
+      s7["Digital University sync"]:::svc
+    end
+    orm[("Data access (SQLAlchemy ORM)")]:::orm
+  end
+
+  subgraph EXT["Data and external services"]
+    pg[("PostgreSQL")]:::store
+    files[("File storage: slides, plans, posters")]:::store
+    entra["Microsoft Entra ID (OIDC)"]:::ext
+    graphapi["Microsoft Graph (Outlook mail)"]:::ext
+    llm["OpenAI API / local LLM"]:::ext
+    du["AITU Digital University"]:::ext
+  end
+
+  b5 -- "REST, JSON, HTTPS" --> r2
+  RT --> SV
+  SV --> orm
+  orm -- "SQL" --> pg
+  s4 --> files
+  r1 -.-> entra
+  s3 -.-> graphapi
+  s5 -.-> llm
+  s7 -.-> du
